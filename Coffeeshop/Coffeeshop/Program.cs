@@ -16,7 +16,7 @@ namespace Coffeeshop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Coffeshop());
+            Application.Run(new addButton());
         }
     }
 }

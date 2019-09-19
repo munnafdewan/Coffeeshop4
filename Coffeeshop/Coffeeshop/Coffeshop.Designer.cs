@@ -1,6 +1,6 @@
 ﻿namespace Coffeeshop
 {
-    partial class Coffeshop
+    partial class addButton
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.customerInformation = new System.Windows.Forms.GroupBox();
-            this.saveButton = new System.Windows.Forms.Button();
+            this.showButton = new System.Windows.Forms.Button();
             this.quantity = new System.Windows.Forms.Label();
             this.order = new System.Windows.Forms.Label();
             this.address = new System.Windows.Forms.Label();
@@ -47,7 +47,7 @@
             // 
             // customerInformation
             // 
-            this.customerInformation.Controls.Add(this.saveButton);
+            this.customerInformation.Controls.Add(this.showButton);
             this.customerInformation.Controls.Add(this.quantity);
             this.customerInformation.Controls.Add(this.order);
             this.customerInformation.Controls.Add(this.address);
@@ -66,15 +66,15 @@
             this.customerInformation.TabStop = false;
             this.customerInformation.Text = "Customer Information";
             // 
-            // saveButton
+            // showButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(49, 248);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 11;
-            this.saveButton.Text = "save";
-            this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.showButton.Location = new System.Drawing.Point(96, 248);
+            this.showButton.Name = "showButton";
+            this.showButton.Size = new System.Drawing.Size(75, 23);
+            this.showButton.TabIndex = 11;
+            this.showButton.Text = "Show";
+            this.showButton.UseVisualStyleBackColor = true;
+            this.showButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // quantity
             // 
@@ -127,7 +127,7 @@
             this.button.Name = "button";
             this.button.Size = new System.Drawing.Size(75, 23);
             this.button.TabIndex = 5;
-            this.button.Text = "Show";
+            this.button.Text = "Add";
             this.button.UseVisualStyleBackColor = true;
             this.button.Click += new System.EventHandler(this.button_Click);
             // 
@@ -181,14 +181,14 @@
             this.richTextBox.TabIndex = 1;
             this.richTextBox.Text = "";
             // 
-            // Coffeshop
+            // addButton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.richTextBox);
             this.Controls.Add(this.customerInformation);
-            this.Name = "Coffeshop";
+            this.Name = "addButton";
             this.Text = "Coffeshop";
             this.customerInformation.ResumeLayout(false);
             this.customerInformation.PerformLayout();
@@ -211,7 +211,7 @@
         private System.Windows.Forms.TextBox customerContuctNo;
         private System.Windows.Forms.TextBox customerNameBox;
         private System.Windows.Forms.RichTextBox richTextBox;
-        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button showButton;
     }
 }
 

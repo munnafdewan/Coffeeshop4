@@ -10,140 +10,134 @@ using System.Windows.Forms;
 
 namespace Coffeeshop
 {
-    public partial class Coffeshop : Form
+    public partial class addButton : Form
     {
-        
-        List<string> names = new List<string> { };
-    
-        List<int> contuct = new List<int> { };
-        List<string> addres = new List<string> { };
-        List<string> item = new List<string> { };
-        List<int> quantitty = new List<int> { };
-        
-       
-        int index = 0;
-        string message = " ";
 
-        public Coffeshop()
+        int con = 0;
+        ErrorProvider ep = new ErrorProvider();
+
+        public addButton()
         {
             InitializeComponent();
         }
-
+        ListView listView1 = new ListView();
 
         private void button_Click(object sender, EventArgs e)
         {
-            double price = 0;
-            for (index = 0; index < names.Count; index++)
+
+            if (con > 0)
             {
-                if (item[index] == "Black")
+                for (int i = 0; i < listView1.Items.Count; i++)
                 {
-                    price = 120 * (quantitty[index]);
+
+                    string Contact = listView1.Items[i].SubItems[2].Text;
+
+
+                    if (Contact.Substring(0, 12) == customerContuctNo.Text)
+                    {
+
+
+                        MessageBox.Show("Number is already taken");
+                        return;
+                    }
                 }
-                else if (item[index] == "Cold")
-                {
-                    price = 100 * (quantitty[index]);
-                }
-                else if (item[index] == "Hot")
-                {
-                    price = 90 * quantitty[index];
-                }
-                else if (item[index] == "Regular")
+            }
 
-                    price = 80 * quantitty[index];
+            string price = "";
+            decimal black = 120;
+            decimal cold = 100;         
+            decimal hot = 90;
+            decimal regular = 80;
+            int er = 0;
 
-
-                else
-                {
-                    MessageBox.Show("Please Select an item first");
-                }
-
-
-                message += "Customer Name : " + names[index] + "\n" + "Contuct Number : " + contuct[index] + "\n" + "Address : " + addres[index] + "\n" + "Order : " + item[index] + "\n" + "Quantity : " + quantitty[index] + "\n" + "Total Price : " + price + "\n" + "\n";
-
+            if (orderComboBox.Text == "")
+            {
+                er++;
+                ep.SetError(orderComboBox, "Please Select an item first");
+                return;
+            }
+            if (quantityCoffee.Text == "")
+            {
+                er++;
+                ep.SetError(quantityCoffee, "Please Enter quantity");
 
             }
 
-            richTextBox.Text = (message);
-        
-      
+            if (orderComboBox.Text == "Black")
+            {
+                price = (black * Decimal.Parse(quantityCoffee.Text)).ToString();
+            }
+            else if (orderComboBox.Text == "Cold")
+            {
+                price = (cold * Decimal.Parse(quantityCoffee.Text)).ToString();
+            }
+            else if (orderComboBox.Text == "Hot")
+            {
+                price = (hot * Decimal.Parse(quantityCoffee.Text)).ToString();
+            }
+            else if (orderComboBox.Text == "Regular")
+            {
+                price = (regular * Decimal.Parse(quantityCoffee.Text)).ToString();
+            }
+            else
+            {
+
+            }
+
+
+
+            ListViewItem item = new ListViewItem();
+            item.SubItems.Add("Name : " + customerNameBox.Text);
+            item.SubItems.Add("Contact : " + customerContuctNo.Text);
+            item.SubItems.Add("Addres : " + customerAddress.Text);
+            item.SubItems.Add("ItemName: " + orderComboBox.Text);
+            item.SubItems.Add("Qty : " + quantityCoffee.Text);
+            item.SubItems.Add("Price: " + price.ToString());
+            listView1.Items.Add(item);
+            customerNameBox.Clear();
+            customerContuctNo.Clear();
+            customerAddress.Clear();
+            orderComboBox.SelectedIndex = -1;
+            quantityCoffee.Clear();
+            price = "";
+            con++;
+
+            MessageBox.Show("Customer Information Add");
+
+
+
+        }
+
+        private void Clear()
+        {
+            customerNameBox.Text = "";
+            customerContuctNo.Text = "";
+            customerAddress.Text = "";
+            quantityCoffee.Text = "";
+            orderComboBox.SelectedIndex = -1;
+            richTextBox.Text = "";
+        }
+
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+
+
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                string Name = listView1.Items[i].SubItems[1].Text;
+                string Contact = listView1.Items[i].SubItems[2].Text;
+                string Addres = listView1.Items[i].SubItems[3].Text;
+                string ItemName = listView1.Items[i].SubItems[4].Text;
+                string Quantitty = listView1.Items[i].SubItems[5].Text;
+                string Price = listView1.Items[i].SubItems[6].Text;
+
+                richTextBox.Text += Name + "\n" + Contact + "\n" + Addres + "\n" + ItemName + "\n" + Quantitty + "\n" + Price + "\n" + "\n";
+
+            }
 
         }
 
        
-        private void saveButton_Click(object sender, EventArgs e)
-        {
-
-           
-            if (index <= names.Count)
-            {
-                try
-                {
-                    if (contuct.Contains(Convert.ToInt32(customerContuctNo.Text)))
-                    {
-                        MessageBox.Show("Phone Number Must be unique ");
-                        return;
-                    }
-                    else
-                        quantitty.Add(Convert.ToInt32(quantityCoffee.Text));
-                }
-                catch (Exception exception)
-                {
-                   MessageBox.Show(exception.Message);
-                    return;
-                }
-                try
-                {
-                    if (String.IsNullOrEmpty(quantityCoffee.Text))
-                    {
-                        MessageBox.Show("Quantity Cannot be empty :");
-                        return;
-                    }
-                    else
-                        quantitty.Add(Convert.ToInt32(quantityCoffee.Text));
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message);
-                    return;
-                }
-                try
-                {
-                    if (String.IsNullOrEmpty(orderComboBox.Text))
-                    {
-                        MessageBox.Show("Select an item first :");
-                        return;
-                    }
-                    else
-                        item.Add(orderComboBox.Text);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(exception.Message);
-                    return;
-                }
-
-               
-                names.Add(customerNameBox.Text);
-                contuct.Add(Convert.ToInt32(customerContuctNo.Text));
-                addres.Add(customerAddress.Text);
-              
-                clear();
-
-
-            }
-
-        }
-
-        private void clear()
-        {
-            customerNameBox.Text = " ";
-            customerContuctNo.Text = " ";
-            customerAddress.Text = " ";
-            orderComboBox.SelectedIndex= -1;
-            quantityCoffee.Text = " ";
-            richTextBox.Text = " ";
-
-
-        }
     }
 }
